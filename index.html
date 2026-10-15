@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#140000">
+  <title>Bima Haris N — Portfolio</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #140000;
+      --wine: #53080e;
+      --wine-light: #76141d;
+      --orange: #ff9900;
+      --paper: #fff8f2;
+      --muted: #c9b8b5;
+      --line: rgb(255 248 242 / 16%);
+      --page-width: 1240px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      overflow-x: clip;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: "Segoe UI", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.has-entered { overflow-x: hidden; }
+
+    button, a { font: inherit; }
+    a { color: inherit; }
+
+    .intro {
+      position: relative;
+      display: grid;
+      min-height: 100svh;
+      place-items: center;
+      overflow: hidden;
+      background: var(--ink);
+    }
+
+    .intro::before {
+      position: absolute;
+      inset: 14vh 0;
+      border: 1px solid rgb(255 255 255 / 24%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .intro-orb {
+      display: flex;
+      width: clamp(310px, 34vw, 440px);
+      aspect-ratio: 1;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 36px;
+      border-radius: 50%;
+      background: var(--wine);
+      transition: transform 700ms cubic-bezier(.2,.8,.2,1), opacity 500ms ease;
+    }
+
+    .intro h1 {
+      margin: 0;
+      font-size: clamp(88px, 9vw, 142px);
+      font-weight: 700;
+      letter-spacing: -0.085em;
+      line-height: .9;
+    }
+
+    .intro-link {
+      display: inline-flex;
+      max-width: 116px;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border: 0;
+      background: none;
+      color: var(--paper);
+      cursor: pointer;
+      font-size: 13px;
+      line-height: 1.35;
+      text-align: left;
+    }
+
+    .intro-link span { transition: transform 180ms ease; }
+    .intro-link:hover span { transform: translateX(4px); }
+
+    .arrow {
+      display: inline-grid;
+      width: 36px;
+      height: 36px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid rgb(255 255 255 / 45%);
+      border-radius: 50%;
+      font-size: 18px;
+      transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .intro-link:hover .arrow {
+      border-color: var(--orange);
+      background: var(--orange);
+      color: var(--ink);
+    }
+
+    .intro.is-leaving .intro-orb {
+      transform: scale(1.2);
+      opacity: 0;
+    }
+
+    .site {
+      display: none;
+      opacity: 0;
+    }
+
+    body.has-entered .site {
+      display: block;
+      animation: reveal 600ms ease forwards;
+    }
+
+    @keyframes reveal { to { opacity: 1; } }
+
+    .site-header {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      display: flex;
+      min-height: 82px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 max(6vw, calc((100vw - var(--page-width)) / 2));
+      border-bottom: 1px solid rgb(255 255 255 / 9%);
+      background: rgb(20 0 0 / 92%);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      color: var(--paper);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-decoration: none;
+    }
+
+    .brand span { color: var(--orange); }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(22px, 4vw, 58px);
+    }
+
+    .nav a {
+      color: var(--paper);
+      font-size: 13px;
+      font-weight: 650;
+      letter-spacing: .04em;
+      text-decoration: none;
+      transition: color 160ms ease;
+    }
+
+    .nav a:hover, .nav a[aria-current="location"] { color: var(--orange); }
+
+    .section {
+      position: relative;
+      padding: 128px 24px;
+      scroll-margin-top: 80px;
+    }
+
+    .section-inner {
+      position: relative;
+      z-index: 1;
+      width: min(100%, var(--page-width));
+      margin-inline: auto;
+    }
+
+    .section::before {
+      position: absolute;
+      z-index: 0;
+      top: 10%;
+      right: -310px;
+      width: min(65vw, 780px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgb(83 8 14 / 58%), rgb(83 8 14 / 0%) 69%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      margin: 0 0 20px;
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      max-width: 850px;
+      margin: 0;
+      font-size: clamp(42px, 7vw, 88px);
+      font-weight: 600;
+      letter-spacing: -.065em;
+      line-height: .98;
+    }
+
+    .about {
+      min-height: 730px;
+      display: flex;
+      align-items: center;
+      padding-top: 112px;
+      padding-bottom: 112px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      align-items: center;
+      gap: 80px;
+    }
+
+    .about-copy { max-width: 650px; }
+
+    .about-copy > p:not(.eyebrow) {
+      max-width: 585px;
+      margin: 30px 0 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.5vw, 20px);
+      line-height: 1.8;
+    }
+
+    .about-facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 34px;
+      margin-top: 52px;
+    }
+
+    .fact h3 {
+      margin: 0 0 15px;
+      color: var(--orange);
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .fact p {
+      margin: 0;
+      color: var(--paper);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .portrait-wrap {
+      position: relative;
+      justify-self: center;
+      width: min(100%, 340px);
+      padding: 15px;
+      border: 1px solid rgb(255 255 255 / 20%);
+      border-radius: 48% 48% 12px 12px;
+      background: rgb(83 8 14 / 28%);
+    }
+
+    .portrait-wrap::before {
+      position: absolute;
+      z-index: -1;
+      inset: -28px 35px 38px -28px;
+      border: 1px solid var(--wine-light);
+      border-radius: 48% 48% 12px 12px;
+      content: "";
+    }
+
+    .portrait {
+      display: block;
+      width: 100%;
+      max-height: 490px;
+      border-radius: 48% 48% 6px 6px;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .portfolio {
+      padding-top: 118px;
+      background: linear-gradient(180deg, #1b0304 0%, var(--ink) 100%);
+    }
+
+    .portfolio::before {
+      top: 0;
+      right: auto;
+      left: -390px;
+      background: radial-gradient(circle at 65% 45%, rgb(83 8 14 / 45%), rgb(83 8 14 / 0%) 70%);
+    }
+
+    .portfolio-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 54px;
+    }
+
+    .portfolio-heading .section-title { max-width: 700px; }
+
+    .portfolio-note {
+      max-width: 240px;
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .project-card {
+      position: relative;
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #210607;
+      color: inherit;
+      cursor: pointer;
+      text-align: left;
+      transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+    }
+
+    .project-card:hover, .project-card:focus-visible {
+      transform: translateY(-6px);
+      border-color: rgb(255 153 0 / 65%);
+      box-shadow: 0 16px 48px rgb(0 0 0 / 28%);
+      outline: none;
+    }
+
+    .project-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background: #2a0a0c;
+      object-fit: cover;
+      transition: transform 450ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .project-card:hover img { transform: scale(1.035); }
+
+    .project-info {
+      display: flex;
+      min-height: 96px;
+      flex: 1;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 17px 18px;
+    }
+
+    .project-info h3 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .project-info p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .project-arrow {
+      color: var(--orange);
+      font-size: 22px;
+    }
+
+    .contact {
+      overflow: hidden;
+      padding-top: 132px;
+      padding-bottom: 132px;
+      background: #1b0304;
+    }
+
+    .contact::before {
+      top: -150px;
+      right: -150px;
+      width: 620px;
+      background: radial-gradient(circle, rgb(83 8 14 / 78%), rgb(83 8 14 / 0%) 70%);
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      align-items: end;
+      gap: 80px;
+    }
+
+    .contact-title { max-width: 740px; }
+
+    .contact-intro {
+      max-width: 460px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .contact-links {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-links a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 17px 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--paper);
+      font-size: 14px;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+      transition: color 160ms ease;
+    }
+
+    .contact-links a span:last-child { color: var(--orange); font-size: 18px; }
+    .contact-links a:hover { color: var(--orange); }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 24px max(24px, calc((100vw - var(--page-width)) / 2));
+      border-top: 1px solid rgb(255 255 255 / 9%);
+      color: #a99290;
+      font-size: 12px;
+    }
+
+    .project-dialog {
+      width: min(900px, calc(100vw - 32px));
+      max-height: min(90vh, 900px);
+      padding: 0;
+      overflow: auto;
+      border: 1px solid rgb(255 255 255 / 20%);
+      border-radius: 8px;
+      background: #1b0304;
+      color: var(--paper);
+      box-shadow: 0 24px 90px rgb(0 0 0 / 70%);
+    }
+
+    .project-dialog::backdrop { background: rgb(8 0 0 / 82%); backdrop-filter: blur(8px); }
+
+    .dialog-close {
+      position: sticky;
+      z-index: 1;
+      top: 12px;
+      float: right;
+      display: grid;
+      width: 42px;
+      height: 42px;
+      margin: 12px 12px -54px 0;
+      place-items: center;
+      border: 1px solid rgb(255 255 255 / 40%);
+      border-radius: 50%;
+      background: rgb(20 0 0 / 75%);
+      color: white;
+      cursor: pointer;
+      font-size: 24px;
+    }
+
+    .dialog-image {
+      display: block;
+      width: 100%;
+      max-height: 58vh;
+      background: #2a0a0c;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .dialog-copy { padding: 30px clamp(22px, 5vw, 48px) 40px; }
+    .dialog-copy h2 { margin: 0; font-size: clamp(25px, 4vw, 40px); letter-spacing: -.04em; }
+    .dialog-copy p:last-child { max-width: 740px; margin: 18px 0 0; color: var(--muted); line-height: 1.75; }
+    .dialog-copy .eyebrow { margin-bottom: 10px; }
+
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr .7fr; gap: 45px; }
+      .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .contact-layout { grid-template-columns: 1fr; gap: 42px; }
+      .contact-links { max-width: 600px; }
+    }
+
+    @media (max-width: 620px) {
+      .intro::before { inset: 16vh 0; }
+      .intro-orb {
+        width: min(86vw, 370px);
+        gap: 14px;
+        padding: 28px;
+      }
+      .intro h1 { font-size: clamp(82px, 24vw, 118px); }
+      .intro-link { max-width: 96px; font-size: 11px; }
+      .arrow { width: 30px; height: 30px; font-size: 15px; }
+      .site-header { min-height: 68px; padding-inline: 20px; }
+      .brand { font-size: 13px; }
+      .nav { gap: 16px; }
+      .nav a { font-size: 11px; }
+      .section { padding: 88px 20px; scroll-margin-top: 66px; }
+      .about { min-height: auto; }
+      .about-grid { grid-template-columns: 1fr; gap: 52px; }
+      .about-facts { gap: 24px; margin-top: 36px; }
+      .portrait-wrap { width: min(78%, 310px); }
+      .portfolio-heading { display: block; margin-bottom: 34px; }
+      .portfolio-note { margin-top: 20px; }
+      .project-grid { gap: 12px; }
+      .project-info { min-height: 83px; padding: 12px; }
+      .project-info h3 { font-size: 13px; }
+      .project-info p { font-size: 9px; }
+      .project-arrow { font-size: 18px; }
+      .contact { padding-top: 94px; padding-bottom: 94px; }
+      .footer { flex-direction: column; padding-inline: 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="intro" id="intro" aria-label="Pembuka portfolio">
+    <div class="intro-orb">
+      <h1>Hi</h1>
+      <button class="intro-link" id="enter-button" type="button">
+        <span>Click here<br>to see my portfolio</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </button>
+    </div>
+  </section>
+
+  <div class="site" id="portfolio-site">
+    <header class="site-header">
+      <a class="brand" href="#about" aria-label="Bima Haris, ke beranda">BIMA<span>.</span></a>
+      <nav class="nav" aria-label="Navigasi utama">
+        <a href="#about">HOME</a>
+        <a href="#portfolio">PORTOFOLIO</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="section about" id="about">
+        <div class="section-inner about-grid">
+          <div class="about-copy">
+            <p class="eyebrow">Halo, saya</p>
+            <h2 class="section-title">Bima Haris N<span style="color:var(--orange)">.</span></h2>
+            <p>Saya adalah siswa SMK Boash 1 jurusan Desain Komunikasi Visual yang memiliki ketertarikan pada dunia desain, fotografi, dan visual kreatif.</p>
+            <div class="about-facts">
+              <div class="fact">
+                <h3>Yang saya kerjakan</h3>
+                <p>Graphic design<br>Photography<br>UI/UX design<br>Motion graphic<br>Social media design</p>
+              </div>
+              <div class="fact">
+                <h3>Pendidikan</h3>
+                <p>SDN Cibinong 01<br>SMP Darunnajah<br>SMK Boash 1</p>
+              </div>
+            </div>
+          </div>
+          <div class="portrait-wrap">
+            <img class="portrait" src="resources/b76089002a483d0e995a280fd3213126" alt="Foto Bima Haris">
+          </div>
+        </div>
+      </section>
+
+      <section class="section portfolio" id="portfolio">
+        <div class="section-inner">
+          <div class="portfolio-heading">
+            <div>
+              <p class="eyebrow">Pilihan karya</p>
+              <h2 class="section-title">Portofolio<span style="color:var(--orange)">.</span></h2>
+            </div>
+            <p class="portfolio-note">Beberapa karya desain yang saya buat untuk produk dan kegiatan komunitas.</p>
+          </div>
+
+          <div class="project-grid">
+            <button class="project-card" type="button"
+              data-title="Poster Produk Pocari Sweat"
+              data-category="Poster produk"
+              data-description="Pocari Sweat adalah minuman isotonic yang dibuat untuk membantu menggantikan cairan dan elektrolit tubuh yang hilang, terutama setelah berkeringat atau melakukan aktivitas fisik. Tugas saya membuat poster produk."
+              data-image="resources/3fff41cf6dde47a49092a325edb82c70">
+              <img src="resources/3fff41cf6dde47a49092a325edb82c70" alt="Poster produk Pocari Sweat" loading="lazy">
+              <span class="project-info"><span><h3>Pocari Sweat</h3><p>Poster produk</p></span><span class="project-arrow" aria-hidden="true">↗</span></span>
+            </button>
+
+            <button class="project-card" type="button"
+              data-title="Poster Produk NIKE"
+              data-category="Poster produk"
+              data-description="Poster untuk salah satu perusahaan sepatu, pakaian, dan alat-alat olahraga terbesar di dunia. Tugas saya membuat poster produk."
+              data-image="resources/9dccb6097c5f819126ea4a74ee0afdc7">
+              <img src="resources/9dccb6097c5f819126ea4a74ee0afdc7" alt="Poster produk Nike" loading="lazy">
+              <span class="project-info"><span><h3>Nike</h3><p>Poster produk</p></span><span class="project-arrow" aria-hidden="true">↗</span></span>
+            </button>
+
+            <button class="project-card" type="button"
+              data-title="Poster 17 Agustusan"
+              data-category="Desain untuk Karang Taruna"
+              data-description="Poster bertema hari kemerdekaan Indonesia yang dibuat dengan gaya modern dan bernuansa nasionalis. Poster berfungsi sebagai media komunikasi visual untuk menyampaikan pesan sekaligus menarik perhatian masyarakat."
+              data-image="resources/4fb827ebc49ef76a20f0b6e6b65b3192">
+              <img src="resources/4fb827ebc49ef76a20f0b6e6b65b3192" alt="Poster perayaan 17 Agustus" loading="lazy">
+              <span class="project-info"><span><h3>17 Agustusan</h3><p>Poster acara</p></span><span class="project-arrow" aria-hidden="true">↗</span></span>
+            </button>
+
+            <button class="project-card" type="button"
+              data-title="Thumbnail Media Sosial"
+              data-category="Desain untuk Karang Taruna"
+              data-description="Desain ucapan selamat Hari Ulang Tahun Kemerdekaan Republik Indonesia ke-81 yang dibuat khusus untuk organisasi Karang Taruna."
+              data-image="resources/acf3bbbe21c24c34a56d3c15c49da7f6">
+              <img src="resources/acf3bbbe21c24c34a56d3c15c49da7f6" alt="Desain thumbnail media sosial untuk Karang Taruna" loading="lazy">
+              <span class="project-info"><span><h3>Thumbnail Sosial</h3><p>Media sosial</p></span><span class="project-arrow" aria-hidden="true">↗</span></span>
+            </button>
+
+            <button class="project-card" type="button"
+              data-title="Poster Karnaval Kemerdekaan"
+              data-category="Desain untuk Karang Taruna"
+              data-description="Poster berisi pengumuman acara karnaval kemerdekaan yang diselenggarakan untuk merayakan Hari Ulang Tahun Republik Indonesia."
+              data-image="resources/c2198ef9137c6969f7d41d8192d20b6e">
+              <img src="resources/c2198ef9137c6969f7d41d8192d20b6e" alt="Poster Karnaval Kemerdekaan" loading="lazy">
+              <span class="project-info"><span><h3>Karnaval Kemerdekaan</h3><p>Poster acara</p></span><span class="project-arrow" aria-hidden="true">↗</span></span>
+            </button>
+
+            <button class="project-card" type="button"
+              data-title="Poster Lomba Karaoke"
+              data-category="Desain untuk Karang Taruna"
+              data-description="Media publikasi resmi untuk acara lomba karaoke warga yang dikonsep secara menarik untuk mengundang partisipasi aktif seluruh elemen masyarakat di lingkungan sekitar."
+              data-image="resources/affbce1b2d6e28dbd8506f0bd8b4d2a3">
+              <img src="resources/affbce1b2d6e28dbd8506f0bd8b4d2a3" alt="Poster lomba karaoke" loading="lazy">
+              <span class="project-info"><span><h3>Lomba Karaoke</h3><p>Poster acara</p></span><span class="project-arrow" aria-hidden="true">↗</span></span>
+            </button>
+
+            <button class="project-card" type="button"
+              data-title="Banner 17 Agustus"
+              data-category="Desain untuk Karang Taruna"
+              data-description="Desain publikasi untuk memperingati Hari Ulang Tahun Kemerdekaan Republik Indonesia ke-81."
+              data-image="resources/a6822ec36770a4f5dfe4c9ea1828db56">
+              <img src="resources/a6822ec36770a4f5dfe4c9ea1828db56" alt="Banner peringatan 17 Agustus" loading="lazy">
+              <span class="project-info"><span><h3>Banner 17 Agustus</h3><p>Banner acara</p></span><span class="project-arrow" aria-hidden="true">↗</span></span>
+            </button>
+
+            <button class="project-card" type="button"
+              data-title="Flayer Malam Puncak"
+              data-category="Desain untuk Karang Taruna"
+              data-description="Poster recap kegiatan 17 Agustus yang dibuat untuk mengabadikan suasana perayaan HUT RI ke-81, Kemerdekaan Republik Indonesia tahun 2026."
+              data-image="resources/b93879dc97923895dd85779f722a4352">
+              <img src="resources/b93879dc97923895dd85779f722a4352" alt="Flayer Malam Puncak" loading="lazy">
+              <span class="project-info"><span><h3>Malam Puncak</h3><p>Flayer acara</p></span><span class="project-arrow" aria-hidden="true">↗</span></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact" id="contact">
+        <div class="section-inner contact-layout">
+          <div>
+            <p class="eyebrow">Mari terhubung</p>
+            <h2 class="section-title contact-title">Contact Me<span style="color:var(--orange)">.</span></h2>
+            <p class="contact-intro">Punya ide atau ingin bekerja sama? Hubungi saya melalui salah satu kontak di bawah ini.</p>
+          </div>
+          <div class="contact-links">
+            <a href="tel:+6282121324567"><span>+62-821-2132-4567</span><span aria-hidden="true">↗</span></a>
+            <a href="mailto:bimaharisss@gmail.com"><span>bimaharisss@gmail.com</span><span aria-hidden="true">↗</span></a>
+            <a href="mailto:bimaaharisss@yahoo.com"><span>bimaaharisss@yahoo.com</span><span aria-hidden="true">↗</span></a>
+            <a href="https://instagram.com/bmhrsnrry_" target="_blank" rel="noreferrer"><span>Instagram · bmhrsnrry_</span><span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Bima Haris N · Portfolio</span>
+      <span>Desain Komunikasi Visual</span>
+    </footer>
+  </div>
+
+  <dialog class="project-dialog" id="project-dialog" aria-labelledby="dialog-title">
+    <button class="dialog-close" type="button" aria-label="Tutup detail">×</button>
+    <img class="dialog-image" src="" alt="">
+    <div class="dialog-copy">
+      <p class="eyebrow"></p>
+      <h2 id="dialog-title"></h2>
+      <p></p>
+    </div>
+  </dialog>
+
+  <script>
+    const enterButton = document.querySelector("#enter-button");
+    const intro = document.querySelector("#intro");
+
+    enterButton.addEventListener("click", () => {
+      intro.classList.add("is-leaving");
+      window.setTimeout(() => {
+        document.body.classList.add("has-entered");
+        document.querySelector("#about").scrollIntoView({ behavior: "smooth" });
+      }, 260);
+    });
+
+    const dialog = document.querySelector("#project-dialog");
+    const dialogImage = dialog.querySelector(".dialog-image");
+    const dialogCategory = dialog.querySelector(".eyebrow");
+    const dialogTitle = dialog.querySelector("#dialog-title");
+    const dialogDescription = dialog.querySelector(".dialog-copy p:last-child");
+
+    document.querySelectorAll(".project-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        dialogImage.src = card.dataset.image;
+        dialogImage.alt = card.querySelector("img").alt;
+        dialogCategory.textContent = card.dataset.category;
+        dialogTitle.textContent = card.dataset.title;
+        dialogDescription.textContent = card.dataset.description;
+        dialog.showModal();
+      });
+    });
+
+    dialog.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && dialog.open) dialog.close();
+    });
+  </script>
+</body>
+</html>
